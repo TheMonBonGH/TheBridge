@@ -284,9 +284,11 @@ public class Arena extends BukkitRunnable {
                 for(Player p : getPlayers()) {
                   VersionUtils.sendTitles(p, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Lose"),
                       chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Subtitles.Reached").replace("%base%", base.getFormattedColor()), 5, 40, 5);
-                      p.playEffect(EntityEffect.TOTEM_RESURRECT);
+                      p.playSound(p.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
                   if(base.getPlayers().contains(p)) {
                     VersionUtils.sendTitles(p, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Win"), "", 5, 40, 5);
+                    p.playSound(p.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
+                    p.playEffect(EntityEffect.TOTEM_RESURRECT);
                   }
                 }
                 ArenaManager.stopGame(false, this);
@@ -299,10 +301,12 @@ public class Arena extends BukkitRunnable {
               for(Player player : getPlayers()) {
                 if(!isDeathPlayer(player)) {
                   VersionUtils.sendTitles(player, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Win"), "", 5, 40, 5);
+                  player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
                   player.playEffect(EntityEffect.TOTEM_RESURRECT);
                   winner = getBase(player);
                 } else {
                   VersionUtils.sendTitles(player, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Lose"), "", 5, 40, 5);
+                  player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
                 }
               }
               ArenaManager.stopGame(false, this);

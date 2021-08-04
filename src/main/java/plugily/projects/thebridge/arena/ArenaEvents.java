@@ -22,6 +22,7 @@ package plugily.projects.thebridge.arena;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -250,6 +251,7 @@ public class ArenaEvents implements Listener {
         String subtitle = chatManager.colorMessage("In-Game.Messages.Portal.Scored.Subtitle").replace("%player%", player.getName()).replace("%base%", arena.getBase(player).getFormattedColor()).replace("%base_jumped%", base.getFormattedColor());
         for(Player p : arena.getPlayers()) {
           VersionUtils.sendTitles(p, title, subtitle, 5, 80, 5);
+          p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
         }
         chatManager.broadcast(arena, chatManager.colorMessage("In-Game.Messages.Portal.Opponent").replace("%player%", player.getName()).replace("%base%", arena.getBase(player).getFormattedColor()).replace("%base_jumped%", base.getFormattedColor()));
         arena.getScoreboardManager().resetBaseCache();
@@ -393,7 +395,7 @@ public class ArenaEvents implements Listener {
     }
     arena.addHits(victim, attacker);
 
-    XSound.ENTITY_PLAYER_DEATH.play(victim.getLocation(), 50, 1);
+    XSound.BLOCK_BUBBLE_COLUMN_BUBBLE_POP.play(victim.getLocation(), 50, 1);
 
     if(victim.getHealth() - e.getDamage() < 0) {
       return;
