@@ -19,10 +19,7 @@
 
 package plugily.projects.thebridge.arena;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -264,9 +261,6 @@ public class Arena extends BukkitRunnable {
             String title = chatManager.formatMessage(this, chatManager.colorMessage("In-Game.Messages.Blocked.Title").replace("%seconds%", String.valueOf(resetRound)), p);
             String subtitle = chatManager.formatMessage(this, chatManager.colorMessage("In-Game.Messages.Blocked.Subtitle", p).replace("%seconds%", String.valueOf(resetRound)), p);
             VersionUtils.sendTitles(p, title, subtitle, 5, 40, 5);
-            if(resetRound == 1) {
-              p.sendMessage(chatManager.colorMessage("In-Game.Messages.Blocked.Run"));
-            }
           }
           if(resetRound == 1) {
             Bukkit.getPluginManager().callEvent(new TBRoundStartEvent(this));
@@ -289,6 +283,7 @@ public class Arena extends BukkitRunnable {
                 for(Player p : getPlayers()) {
                   VersionUtils.sendTitles(p, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Lose"),
                       chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Subtitles.Reached").replace("%base%", base.getFormattedColor()), 5, 40, 5);
+                      p.playEffect(EntityEffect.TOTEM_RESURRECT);
                   if(base.getPlayers().contains(p)) {
                     VersionUtils.sendTitles(p, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Win"), "", 5, 40, 5);
                   }
@@ -303,6 +298,7 @@ public class Arena extends BukkitRunnable {
               for(Player player : getPlayers()) {
                 if(!isDeathPlayer(player)) {
                   VersionUtils.sendTitles(player, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Win"), "", 5, 40, 5);
+                  player.playEffect(EntityEffect.TOTEM_RESURRECT);
                   winner = getBase(player);
                 } else {
                   VersionUtils.sendTitles(player, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Lose"), "", 5, 40, 5);
