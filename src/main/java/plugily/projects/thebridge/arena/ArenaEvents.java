@@ -134,12 +134,10 @@ public class ArenaEvents implements Listener {
 
   public boolean canBuild(Arena arena, Player player, Location location) {
     if(!arena.getArenaBorder().isIn(player)) {
-      player.sendMessage(plugin.getChatManager().colorMessage("In-Game.Messages.Build-Break"));
       return false;
     }
     for(Base base : arena.getBases()) {
       if(base.getBaseCuboid().isIn(location)) {
-        player.sendMessage(plugin.getChatManager().colorMessage("In-Game.Messages.Build-Break"));
         return false;
       }
     }
@@ -156,7 +154,6 @@ public class ArenaEvents implements Listener {
       plugin.getUserManager().getUser(attacker).addStat(StatsStorage.StatisticType.LOCAL_KILLS, 1);
       attacker.sendMessage(plugin.getChatManager().colorMessage("In-Game.Messages.Killed").replace("%VICTIM%", victim.getName()));
       plugin.getChatManager().broadcast(arena, plugin.getChatManager().colorMessage("In-Game.Messages.Death").replace("%PLAYER%", victim.getName()).replace("%ATTACKER%", attacker.getName()));
-      victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1));
     }
   }
 
@@ -298,7 +295,6 @@ public class ArenaEvents implements Listener {
         if(arena.getArenaState() == ArenaState.STARTING || arena.getArenaState() == ArenaState.WAITING_FOR_PLAYERS) {
           victim.teleport(arena.getLobbyLocation());
           e.setCancelled(true);
-          victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1));
         }
         //kill the player and move to the spawn point
         if(arena.getBase(victim) != null) {
