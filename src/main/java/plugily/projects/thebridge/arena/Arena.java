@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import plugily.projects.commonsbox.minecraft.compat.ServerVersion;
 import plugily.projects.commonsbox.minecraft.compat.VersionUtils;
+import plugily.projects.commonsbox.minecraft.compat.xseries.XSound;
 import plugily.projects.commonsbox.minecraft.configuration.ConfigUtils;
 import plugily.projects.commonsbox.minecraft.dimensional.Cuboid;
 import plugily.projects.commonsbox.minecraft.serialization.InventorySerializer;
@@ -263,7 +264,8 @@ public class Arena extends BukkitRunnable {
             String title = chatManager.formatMessage(this, chatManager.colorMessage("In-Game.Messages.Blocked.Title").replace("%seconds%", String.valueOf(resetRound)), p);
             String subtitle = chatManager.formatMessage(this, chatManager.colorMessage("In-Game.Messages.Blocked.Subtitle", p).replace("%seconds%", String.valueOf(resetRound)), p);
             VersionUtils.sendTitles(p, title, subtitle, 5, 40, 5);
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 1.0F);
+            p.playSound(p.getLocation(), XSound.matchXSound("BLOCK_NOTE_BLOCK_PLING").get().parseSound(), 1.0F, 1.0F);
+
           }
           if(resetRound == 1) {
             Bukkit.getPluginManager().callEvent(new TBRoundStartEvent(this));
