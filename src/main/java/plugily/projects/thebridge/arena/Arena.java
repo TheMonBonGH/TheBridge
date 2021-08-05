@@ -90,6 +90,8 @@ public class Arena extends BukkitRunnable {
   private Cuboid arenaBorder;
   private Base winner;
 
+
+
   public Arena(String id) {
     this.id = id;
     for(ArenaOption option : ArenaOption.values()) {
@@ -288,6 +290,7 @@ public class Arena extends BukkitRunnable {
                   if(base.getPlayers().contains(p)) {
                     VersionUtils.sendTitles(p, chatManager.colorMessage("In-Game.Messages.Game-End-Messages.Titles.Win"), "", 5, 40, 5);
                     p.playSound(p.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
+
                     p.playEffect(EntityEffect.TOTEM_RESURRECT);
                   }
                 }
@@ -933,4 +936,5 @@ public class Arena extends BukkitRunnable {
   public enum Mode {
     HEARTS, POINTS
   }
+
 }

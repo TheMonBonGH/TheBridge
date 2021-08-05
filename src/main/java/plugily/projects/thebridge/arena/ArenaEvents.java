@@ -222,14 +222,12 @@ public class ArenaEvents implements Listener {
       cooldownPortal.put(player, System.currentTimeMillis());
       player.sendMessage(chatManager.colorMessage("In-Game.Messages.Portal.Own", player));
       //prevent players being stuck on portal location
-      Bukkit.getScheduler().runTaskLater(plugin, () -> {
         if(player != null) {
           if(arena.getBase(player).getPortalCuboid().isInWithMarge(player.getLocation(), 1)) {
             player.damage(100);
             Debugger.debug(Level.INFO, "Killed " + player.getName() + " because he is more than 3 seconds on own portal (seems to stuck)");
           }
         }
-      }, 20 * 3 /* 3 seconds as cooldown to prevent instant respawning */);
       return;
     }
     for(Base base : arena.getBases()) {
@@ -250,7 +248,7 @@ public class ArenaEvents implements Listener {
         String title = chatManager.colorMessage("In-Game.Messages.Portal.Scored.Title").replace("%player%", player.getName()).replace("%base%", arena.getBase(player).getFormattedColor()).replace("%base_jumped%", base.getFormattedColor());
         String subtitle = chatManager.colorMessage("In-Game.Messages.Portal.Scored.Subtitle").replace("%player%", player.getName()).replace("%base%", arena.getBase(player).getFormattedColor()).replace("%base_jumped%", base.getFormattedColor());
         for(Player p : arena.getPlayers()) {
-          VersionUtils.sendTitles(p, title, subtitle, 5, 80, 5);
+          VersionUtils.sendTitles(p, title, subtitle, 5, 100, 5);
           p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
         }
         chatManager.broadcast(arena, chatManager.colorMessage("In-Game.Messages.Portal.Opponent").replace("%player%", player.getName()).replace("%base%", arena.getBase(player).getFormattedColor()).replace("%base_jumped%", base.getFormattedColor()));
